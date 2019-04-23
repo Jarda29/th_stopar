@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using th_stopar.Models;
 
 namespace th_stopar
@@ -21,18 +12,28 @@ namespace th_stopar
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Game CurrentGame = new Game();
+        private Game CurrentGame;
         private Player _playerOne;
+        private Player _playerTwo;
         public List<Button> GameButtons = new List<Button>();
+
+        private Player _playing;
+        private int _round = 0;
         public MainWindow()
         {
             InitializeComponent();
-            SetUpTheField();
+            
             _playerOne = new Player("Player 1", CurrentGame, this);
+            _playerTwo = new Player("Player 2", CurrentGame, this);
+            SetUpTheField();
+
         }
 
         private void SetUpTheField()
         {
+            CurrentGame = new Game();
+            GameButtons.Clear();
+            _round = 1;
             for (int i = 0; i < Game.Xsize; i++)
             {
                 for (int j = 0; j < Game.Ysize; j++)
@@ -51,6 +52,7 @@ namespace th_stopar
                     GameButtons.Add(btn);
                 }
             }
+            _playing = _playerOne;
         }
 
         private void GameButton_Click(object sender, RoutedEventArgs e)
@@ -63,16 +65,25 @@ namespace th_stopar
 
             if(CurrentGame.Field[posX, posY] == Game.CellState.Throphy)
             {
-                b.Content = "X";
-                MessageBox.Show("You are the winner");
+                b.Content = Game.ThrophyMark;
+                MessageBox.Show($"{_playing.Name} - You are the winner (Round: {_round})");                
                 return;
             }
 
             if(CurrentGame.Field[posX, posY] == Game.CellState.NearThrophy)
             {
-                b.Content = "!";
+                b.Content = Game.NearByMark;
             }
-
+            else
+            {
+                b.Content = Game.EmptyMark;
+            }
+            _round += 1;
+            if (_playing == _playerOne)
+                _playing = _playerTwo;
+            else
+                _playing = _playerOne;
+            _playing.Play();
         }
 
         private void BtnNewField_Click(object sender, RoutedEventArgs e)
@@ -82,7 +93,9 @@ namespace th_stopar
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _playerOne.PlayRandom();
+            _playerOne.PlayerStrategy = (Player.Strategy)strategyOne.SelectedIndex;
+            _playerTwo.PlayerStrategy = (Player.Strategy)strategyTwo.SelectedIndex;
+            _playing.Play();
         }
     }
 }

@@ -4,20 +4,18 @@ namespace th_stopar.Models
 {
     public class Game
     {
-        public const short Xsize = 4;
-        public const short Ysize = 4;
+        public const short Xsize = 8;
+        public const short Ysize = 8;
+
+        public const string ThrophyMark = "X";
+        public const string NearByMark = "!";
+        public const string EmptyMark = "O";
 
         public CellState[,] Field { get; private set; }
 
         public Game()
         {
-            Field = new CellState[Xsize, Ysize]
-            {
-                { 0, 0, 0, 0 },
-                { 0, 0, 0, 0 },
-                { 0, 0, 0, 0 },
-                { 0, 0, 0, 0 }
-            };
+            Field = new CellState[Xsize, Ysize];
             PlaceAThrophy();
         }
 

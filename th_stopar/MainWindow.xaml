@@ -7,9 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="100" Margin="67,130,0,0" VerticalAlignment="Top" Width="100"
+        <Grid HorizontalAlignment="Left" Height="216" Margin="10,144,0,0" VerticalAlignment="Top" Width="280"
               Name="gridGameTable">
             <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -21,10 +25,26 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
         <Button Content="New field" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Name="btnNewField" Click="BtnNewField_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="167,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Play" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Label Content="Player 1:" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
+        <Label Content="Player 2:" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="89,39,0,0" VerticalAlignment="Top" Width="120" Name="strategyOne">
+            <ComboBoxItem Name="Human" Content="Human"/>
+            <ComboBoxItem Name="Random" Content="PC: Random" />
+            <ComboBoxItem Name="Smart" Content="PC: Smart" />
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="89,70,0,0" VerticalAlignment="Top" Width="120" Name="strategyTwo">
+            <ComboBoxItem x:Name="Human1" Content="Human"/>
+            <ComboBoxItem x:Name="Random1" Content="PC: Random" />
+            <ComboBoxItem x:Name="Smart1" Content="PC: Smart" />
+        </ComboBox>
 
     </Grid>
 </Window>
