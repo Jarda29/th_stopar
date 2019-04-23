@@ -21,11 +21,14 @@ namespace th_stopar
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Game CurrentGame = new Game();
+        private readonly Game CurrentGame = new Game();
+        private Player _playerOne;
+        public List<Button> GameButtons = new List<Button>();
         public MainWindow()
         {
             InitializeComponent();
             SetUpTheField();
+            _playerOne = new Player("Player 1", CurrentGame, this);
         }
 
         private void SetUpTheField()
@@ -45,6 +48,7 @@ namespace th_stopar
                     Grid.SetColumn(btn, j);
                     Grid.SetRow(btn, i);
                     gridGameTable.Children.Add(btn);
+                    GameButtons.Add(btn);
                 }
             }
         }
@@ -59,14 +63,14 @@ namespace th_stopar
 
             if(CurrentGame.Field[posX, posY] == Game.CellState.Throphy)
             {
-                //Winner
+                b.Content = "X";
                 MessageBox.Show("You are the winner");
                 return;
             }
 
             if(CurrentGame.Field[posX, posY] == Game.CellState.NearThrophy)
             {
-                b.Content = "#";
+                b.Content = "!";
             }
 
         }
@@ -74,6 +78,11 @@ namespace th_stopar
         private void BtnNewField_Click(object sender, RoutedEventArgs e)
         {
             SetUpTheField();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _playerOne.PlayRandom();
         }
     }
 }

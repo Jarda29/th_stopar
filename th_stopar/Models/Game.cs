@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace th_stopar.Models
 {
-    class Game
+    public class Game
     {
         public const short Xsize = 4;
         public const short Ysize = 4;
@@ -28,8 +24,8 @@ namespace th_stopar.Models
         private void PlaceAThrophy()
         {
             var rnd = new Random();
-            var x = rnd.Next(4);
-            var y = rnd.Next(4);
+            var x = rnd.Next(Xsize);
+            var y = rnd.Next(Ysize);
 
             Field[x, y] = CellState.Throphy;
             for (int i = 0; i < Game.Xsize; i++)
