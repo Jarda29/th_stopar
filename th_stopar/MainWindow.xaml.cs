@@ -22,11 +22,7 @@ namespace th_stopar
         public MainWindow()
         {
             InitializeComponent();
-            
-            _playerOne = new Player("Player 1", CurrentGame, this);
-            _playerTwo = new Player("Player 2", CurrentGame, this);
             SetUpTheField();
-
         }
 
         private void SetUpTheField()
@@ -52,6 +48,8 @@ namespace th_stopar
                     GameButtons.Add(btn);
                 }
             }
+            _playerOne = new Player("Player 1", CurrentGame, this);
+            _playerTwo = new Player("Player 2", CurrentGame, this);
             _playing = _playerOne;
         }
 
@@ -74,10 +72,12 @@ namespace th_stopar
 
             if(CurrentGame.Field[posX, posY] == Game.CellState.NearThrophy)
             {
+                CurrentGame.FieldShared[posX, posY] = Game.CellState.NearThrophy;
                 b.Content = Game.NearByMark;
             }
             else
             {
+                CurrentGame.FieldShared[posX, posY] = Game.CellState.Empty;
                 b.Content = Game.EmptyMark;
             }
             _round += 1;

@@ -23,6 +23,8 @@ namespace th_stopar.Models
         {
             if (PlayerStrategy == Strategy.Random)
                 PlayRandom();
+            else if (PlayerStrategy == Strategy.Smart)
+                PlaySmart();
         }
         private void PlayRandom()
         {
@@ -30,8 +32,8 @@ namespace th_stopar.Models
             var x = rnd.Next(Game.Xsize);
             var y = rnd.Next(Game.Ysize);
 
-            
-            var targetBtn = (Button)_window.GameButtons.First(bt=>bt.Name == $"Button_{x}_{y}");
+
+            var targetBtn = (Button)_window.GameButtons.First(bt => bt.Name == $"Button_{x}_{y}");
             while (targetBtn.Content.ToString() != "")
             {
                 x = rnd.Next(Game.Xsize);
@@ -40,7 +42,55 @@ namespace th_stopar.Models
             }
             targetBtn.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
         }
+        private void PlaySmart()
+        {
+            var fieldP = new float[Game.Xsize, Game.Ysize];
+            for (int k = 0; k < fieldP.GetLength(0); k++)
+            {
+                for (int l = 0; l < fieldP.GetLength(1); l++)
+                {
+                    var nearCells = _game.GetNearCells(k, l);
+                    if (_game.FieldShared[k, l] == Game.CellState.NearThrophy)
+                    {
+                        var p = 1 / (float)nearCells.Count;
+                        foreach (var cells in _game.GetNearCells(k, l))
+                        {
+                            fieldP[cells[0], cells[1]] += p;
+                        }
+                    }
+                    else if (_game.FieldShared[k, l] == Game.CellState.Empty)
+                    {
+                        fieldP[k, l] = -1;
+                        foreach (var cells in _game.GetNearCells(k, l))
+                        {
+                            fieldP[cells[0], cells[1]] = -1;
+                        }
+                    }
+                    else
+                    {
+                        fieldP[k, l] += 0.01f;
+                    }
+                }
+            }
 
+
+            var highestPCell = new int[2] { 0, 0 };
+            float maxP = 0;
+            for (int k = 0; k < fieldP.GetLength(0); k++)
+            {
+                for (int l = 0; l < fieldP.GetLength(1); l++)
+                {
+                    if (fieldP[k, l] <= maxP)
+                        continue;
+
+                    highestPCell[0] = k;
+                    highestPCell[1] = l;
+                    maxP = fieldP[k, l];
+                }
+            }
+            var targetBtn = (Button)_window.GameButtons.First(bt => bt.Name == $"Button_{highestPCell[0]}_{highestPCell[1]}");
+            targetBtn.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+        }
         public enum Strategy
         {
             Human = 0,

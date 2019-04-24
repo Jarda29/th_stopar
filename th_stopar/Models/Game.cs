@@ -13,10 +13,13 @@ namespace th_stopar.Models
         public const string EmptyMark = "O";
 
         public CellState[,] Field { get; private set; }
+        public CellState[,] FieldShared { get; set; } // for smart algorithm, only what was clicked
 
         public Game()
         {
             Field = new CellState[Xsize, Ysize];
+            FieldShared = new CellState[Xsize, Ysize];
+
             PlaceAThrophy();
         }
 
@@ -58,9 +61,10 @@ namespace th_stopar.Models
 
         public enum CellState
         {
-            Empty = 0,
+            Unknown = 0,
             Throphy = 1,
-            NearThrophy = 2
+            NearThrophy = 2,
+            Empty = 3
         }
     }
 }
