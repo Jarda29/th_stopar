@@ -60,8 +60,10 @@ namespace th_stopar
             Button b = (Button)sender;
             var s = b.Name;
 
-            var posX = Convert.ToInt16(b.Name.Split('_')[1]);
-            var posY = Convert.ToInt16(b.Name.Split('_')[2]);
+            var posX = Convert.ToInt32(b.Name.Split('_')[1]);
+            var posY = Convert.ToInt32(b.Name.Split('_')[2]);
+
+            var test = CurrentGame.GetNearCells(posX, posY);
 
             if(CurrentGame.Field[posX, posY] == Game.CellState.Throphy)
             {

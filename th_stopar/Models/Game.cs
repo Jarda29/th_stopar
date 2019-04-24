@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace th_stopar.Models
 {
     public class Game
     {
-        public const short Xsize = 8;
-        public const short Ysize = 8;
+        public const int Xsize = 8;
+        public const int Ysize = 8;
 
         public const string ThrophyMark = "X";
         public const string NearByMark = "!";
@@ -26,27 +27,33 @@ namespace th_stopar.Models
             var y = rnd.Next(Ysize);
 
             Field[x, y] = CellState.Throphy;
-            for (int i = 0; i < Game.Xsize; i++)
+            foreach(var cell in GetNearCells(x, y))
             {
-                if (i - 1 != x &&
-                        i != x &&
-                        i + 1 != x)
+                Field[cell[0], cell[1]] = CellState.NearThrophy;
+            }
+        }
+
+        public List<int[]> GetNearCells(int x, int y)
+        {
+            var list = new List<int[]>();
+            for (int i = -1; i <= 1; i++)
+            {
+                if (y + i < 0)
                     continue;
-                for (int j = 0; j < Game.Ysize; j++)
+                if (y + i >= Ysize)
+                    continue;
+                for (int j = -1; j <= 1; j++)
                 {
-                    if (Field[i, j] == CellState.Throphy)
+                    if (x + j < 0)
                         continue;
-
-                    if (j - 1 != y &&
-                        j != y &&
-                        j + 1 != y)
+                    if (x + j >= Xsize)
                         continue;
-
-                    Field[i, j] = CellState.NearThrophy;
+                    if ((x + j) == x && (y + i) == y)
+                        continue;
+                    list.Add(new int[] { (x + j), (y + i) });
                 }
             }
-
-
+            return list;
         }
 
         public enum CellState
