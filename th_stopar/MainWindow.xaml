@@ -7,9 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="216" Margin="10,144,0,0" VerticalAlignment="Top" Width="280"
+        <Grid HorizontalAlignment="Left" Height="298" Margin="10,111,0,0" VerticalAlignment="Top" Width="349"
               Name="gridGameTable">
             <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -29,22 +31,29 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <Button Content="New field" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Name="btnNewField" Click="BtnNewField_Click"/>
-        <Button Content="Play" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Label Content="Player 1:" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
-        <Label Content="Player 2:" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="89,39,0,0" VerticalAlignment="Top" Width="120" Name="strategyOne">
+        <Button Content="New field" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="75" Name="btnNewField" Click="BtnNewField_Click"/>
+        <Button Content="Start" HorizontalAlignment="Left" Margin="90,70,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Label Content="Player 1:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
+        <Label Content="Player 2:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="89,12,0,0" VerticalAlignment="Top" Width="120" Name="strategyOne">
             <ComboBoxItem Name="Human" Content="Human"/>
             <ComboBoxItem Name="Random" Content="PC: Random" />
             <ComboBoxItem Name="Smart" Content="PC: Smart" />
         </ComboBox>
-        <ComboBox HorizontalAlignment="Left" Margin="89,70,0,0" VerticalAlignment="Top" Width="120" Name="strategyTwo">
+        <ComboBox HorizontalAlignment="Left" Margin="89,43,0,0" VerticalAlignment="Top" Width="120" Name="strategyTwo">
             <ComboBoxItem x:Name="Human1" Content="Human"/>
             <ComboBoxItem x:Name="Random1" Content="PC: Random" />
             <ComboBoxItem x:Name="Smart1" Content="PC: Smart" />
         </ComboBox>
+        <Label Content="Vyberte strategie pro oba hráče." HorizontalAlignment="Left" Margin="389,8,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pokud jste zvolili strategii Human, hrajete kliknutím do políčka.
+               " HorizontalAlignment="Left" Margin="389,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.919,-0.426"/>        
+        <TextBlock HorizontalAlignment="Left" Margin="389,65,0,0" TextWrapping="Wrap" 
+                   Text="Vašim úkolem je najít kořist. Po kliknutí do pole se Vám označí buď ! což znamená, že jste v dosahu kořisti ve vzdálenosti 1, nebo O což znamená, že jste mimo dosah." VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

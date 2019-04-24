@@ -5,8 +5,8 @@ namespace th_stopar.Models
 {
     public class Game
     {
-        public const int Xsize = 8;
-        public const int Ysize = 8;
+        public const int Xsize = 10;
+        public const int Ysize = 10;
 
         public const string ThrophyMark = "X";
         public const string NearByMark = "!";

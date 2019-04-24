@@ -66,7 +66,7 @@ namespace th_stopar
             if(CurrentGame.Field[posX, posY] == Game.CellState.Throphy)
             {
                 b.Content = Game.ThrophyMark;
-                MessageBox.Show($"{_playing.Name} - You are the winner (Round: {_round})");                
+                MessageBox.Show($"{_playing.Name} is the winner (Round: {_round})");                
                 return;
             }
 
